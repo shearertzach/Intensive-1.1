@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<main>
+    <div class="allTasks">
+        {% for task in users_tasks %}
+            <div>
+                <h1>{{ task['title'] }}</h1>
+            </div>
+        {% endfor %}
+    </div>
+</main>
+
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<main>
+    <form action="{{ url_for('create_task') }}" method="POST"></form>
+        <div class="createTask">
+            <div style="justify-content: center; align-items: center; border: 1px solid black;">
+                <!-- <h2 style="margin: 0 auto; margin-top: 25px;">Subtasks</h2>
+
+                <hr width="80%">
+
+                <div class="subtaskContainer">
+                    <div class="subtaskInput">
+                        <input type="text" id="subtask">
+                        <button onclick="">+</button>
+                    </div>
+                </div> -->
+                Work In Progress
+            </div>
+
+
+
+            <div>
+                <h2 style="margin: 0 auto; margin-top: 25px;">Information</h2>
+
+                <hr width="80%">
+
+                <label for="title">Title</label>
+                <input type="text" name="title" placeholder="Title">
+
+                <label for="description">Desctiption</label>
+                <input type="text" name="description" placeholder="Desctiption">
+
+                <label for="category">Category</label>
+                <input type="text" name="category" placeholder="Category">
+
+                <label for="deadline">Deadline</label>
+                <input type="date" name="deadline" placeholder="Due Date">
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 35px;">
+            <button class="submitTaskButton" type="submit">Submit New Task</button>
+        </div>
+    </form>
+</main>
+
+{% endblock content %}

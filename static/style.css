@@ -1,0 +1,228 @@
+body {
+    margin: 0;
+}
+
+/* Top navigation menu */
+#topNav {
+    font-family: 'Open Sans';
+    width: 100%;
+    height: 60px;
+    background-color: #aaf0fc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#topNav p {
+    font-size: 20px;
+    margin-right: 30px;
+}
+
+.menuButton {
+    transition: all 0.3s;
+    padding: 2px 6px;
+    width: 35px;
+    margin-left: 15px;
+}
+
+.menuButton:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.658);
+    border-radius: 10px;
+}
+
+.menuButton div {
+    width: 25px;
+    height: 3px;
+    background-color: rgb(46, 46, 46);
+    margin: 7px auto;
+    border-radius: 3px;
+}
+
+
+
+
+/* The side navigation menu */
+#sideNav {
+    font-family: 'Open Sans';
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(231, 231, 231);
+    overflow-x: hidden;
+    transition: 0.5s;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+#sideNav a {
+    padding: 15px 8px 15px 40px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #a0a0a0;
+    display: block;
+    transition: 0.3s;
+}
+
+#sideNav a:hover {
+    color: #000000;
+}
+
+#sideNav .closebtn {
+    position: absolute;
+    top: 7px;
+    right: 30px;
+    font-size: 36px;
+    margin-left: 50px;
+    padding: 0px
+}
+
+
+
+.authForm {
+    font-family: 'Open Sans';
+    font-size: 20px;
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
+.authForm p {
+    margin: 0 auto;
+    font-size: 45px;
+    margin-top: 20px;
+}
+
+.authForm label {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.authForm input {
+    margin: 0 auto;
+    height: 30px;
+    width: 40%;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.authForm button {
+    font-family: 'Open Sans';
+    font-size: 18px;
+    width: 18%;
+    margin: 0 auto;
+    margin-top: 20px;
+    height: 40px;
+    border: none;
+    transition: all 0.3s;
+    background-color: #e2e2e2;
+    outline: none;
+}
+
+.authForm button:hover {
+    width: 24%;
+    border-radius: 11px;
+    cursor: pointer;
+    background-color: #aafcbf;
+}
+
+
+
+
+
+
+.createTask {
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    margin: 0 auto;
+    font-family: 'Open Sans';
+}
+
+.createTask div {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.createTask label {
+    font-size: 18px;
+    margin: 12px 0;
+}
+
+.createTask input {
+    height: 40px;
+}
+
+.subtaskContainer {
+    flex: 80%;
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.subtaskInput {
+    width: 100% !important;
+    flex-direction: row !important;
+}
+
+.subtaskInput input {
+    width: 85%;
+}
+
+.subtaskInput button {
+    margin: auto;
+    height: 80%;
+    width: 8%;
+    border: none;
+    transition: all 0.3s;
+    background-color: #e2e2e2;
+    outline: none;
+}
+
+.subtaskInput button:hover {
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #aafcbf;
+}
+
+.submitTaskButton {
+    font-family: 'Open Sans';
+    font-size: 18px;
+    width: 18%;
+    height: 40px;
+    border: none;
+    transition: all 0.3s;
+    background-color: #e2e2e2;
+    outline: none;
+
+    margin: 0 auto;
+}
+
+.submitTaskButton:hover {
+    width: 24%;
+    border-radius: 11px;
+    cursor: pointer;
+    background-color: #aafcbf;
+}
+
+
+.allTasks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.allTasks div {
+    border: 1px solid;
+    margin: 35px;
+    height: 500px;
+    width: 300px;
+}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div>
+    <div>
+        <form class="authForm" method="POST" action="{{ url_for('login') }}">
+            <p>Welcome back!</p>
+
+            <hr style="width: 65%;">
+
+            <label for="username">Username</label>
+            <input type="text" name="username" placeholder="Username">
+
+            <label for="pass">Password</label>
+            <input type="password" name="pass" placeholder="Password">
+
+            <button type="submit">Sign In</button>
+            <a style="text-align: center; margin-top: 10px; font-size: 15px;" href="/register">Don't have account? Click here to register.</a>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
