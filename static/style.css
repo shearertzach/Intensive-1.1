@@ -1,3 +1,7 @@
+html {
+    background-color: rgb(24,25,26);
+}
+
 body {
     margin: 0;
 }
@@ -7,15 +11,17 @@ body {
     font-family: 'Open Sans';
     width: 100%;
     height: 60px;
-    background-color: #aaf0fc;
+    background-color: rgb(36,37,38);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid rgb(54,55,56);
 }
 
 #topNav p {
     font-size: 20px;
     margin-right: 30px;
+    color: rgb(230, 230, 230);
 }
 
 .menuButton {
@@ -27,18 +33,17 @@ body {
 
 .menuButton:hover {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.658);
+    background-color: rgba(65, 65, 65, 0.658);
     border-radius: 10px;
 }
 
 .menuButton div {
     width: 25px;
     height: 3px;
-    background-color: rgb(46, 46, 46);
+    background-color: rgb(230, 230, 230);
     margin: 7px auto;
     border-radius: 3px;
 }
-
 
 
 
@@ -51,7 +56,8 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: rgb(231, 231, 231);
+    background-color: rgb(36,37,38);
+    border-right: 1px solid rgb(54,55,56);
     overflow-x: hidden;
     transition: 0.5s;
 
@@ -64,13 +70,14 @@ body {
     padding: 15px 8px 15px 40px;
     text-decoration: none;
     font-size: 25px;
-    color: #a0a0a0;
+    color: #7e7e7e;
     display: block;
     transition: 0.3s;
 }
 
 #sideNav a:hover {
-    color: #000000;
+    color: #ffffff;
+    margin: 10px 0;
 }
 
 #sideNav .closebtn {
@@ -83,8 +90,8 @@ body {
 }
 
 
-
 .authForm {
+    color: white;
     font-family: 'Open Sans';
     font-size: 20px;
     width: 100%;
@@ -133,11 +140,8 @@ body {
 }
 
 
-
-
-
-
 .createTask {
+    color: white;
     display: flex;
     width: 90%;
     justify-content: space-between;
@@ -217,12 +221,93 @@ body {
 .allTasks {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-top: 25px;
 }
 
-.allTasks div {
-    border: 1px solid;
-    margin: 35px;
-    height: 500px;
-    width: 300px;
+.taskCard {
+    font-family: 'Open Sans';
+    border: 1px solid rgb(138, 138, 138);
+    border-radius: 10px ;
+    padding: 10px 20px;
+    width: 350px;
+    margin: 0 40px;
+    color: white;
+}
+
+.taskCardTitle {
+    margin-top: 0px;
+    margin-bottom: 6px;
+    font-size: 30px;
+}
+
+.taskCardDescription {
+    display: flex;
+    padding-right: 3px;
+    
+    height: 150px;
+    overflow-x: hidden;
+}
+
+.taskCardDescription::-webkit-scrollbar {
+    width: 6px;
+}
+
+.taskCardDescription::-webkit-scrollbar-track {
+    
+    border-radius: 10px;
+}
+
+.taskCardDescription::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(209, 209, 209);
+}
+
+.taskCompletionBar {
+    height: 3px;
+    background-color: rgb(112, 250, 112);
+    transition: all 0.5s;
+}
+
+.viewTaskButton {
+    font-family: 'Open Sans';
+    float: right;
+    background-color: rgb(24,25,26);
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    width: 25%;
+    outline: none;
+    padding: 5px;
+    transition: all 0.5s;
+    cursor: pointer;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.viewTaskButton:hover {
+    width: 30%;
+    background-color:rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+    color: black;
+}
+
+.taskCardDeleteButton {
+    position: relative;
+    float: right;
+    top: 0px;
+    font-size: 36px;
+    margin-left: 50px;
+    padding: 0px;
+    text-decoration: none;
+    font-size: 30px;
+    color: rgb(170, 170, 170);
+    display: block;
+    transition: 0.3s;
+}
+
+.taskCardDeleteButton:hover {
+    color: rgb(14, 13, 13);
 }

@@ -1,6 +1,8 @@
 from flask import Flask, request, redirect, render_template, url_for, session
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from datetime import datetime
+import time
 import bcrypt
 import random
 import os
@@ -13,6 +15,14 @@ app = Flask(__name__)
 
 app.config["MONGO_URI"] = "mongodb://localhost:27017/taskDatabase"
 mongo = PyMongo(app)
+
+###########################################################
+# GLOBAL VARIABLES
+############################################################
+
+current_time = datetime.now()
+
+print(current_time)
 
 ############################################################
 # ROUTES
@@ -32,11 +42,18 @@ def homepage():
 @app.route('/tasks')
 def tasks():
 
-    users_tasks = mongo.db.tasks.find({ 'created_by': session['username'] })
+    if 'username' in session:
+        current_user = session['username']
+        users_tasks = mongo.db.tasks.find({ 'created_by': session['username'] })
+        context = {
+            'users_tasks': users_tasks,
+            'current_user': current_user,
+            'current_time': current_time.timestamp()
+        }
 
-    
+        return render_template('tasks.html', **context)
 
-    return render_template('tasks.html', users_tasks=users_tasks)
+    return render_template('login.html')
 
 
 @app.route('/create_task', methods=['POST', "GET"])
@@ -50,14 +67,18 @@ def create_task():
             title = request.form['title']
             description = request.form['description']
             category = request.form['category']
-            deadline = request.form['deadline']
+            deadline = datetime.strptime(request.form['deadline'], '%Y-%m-%d')
+
 
             tasks.insert_one({
                 'created_by': current_user,
                 'title': title,
                 'description': description,
                 'category': category,
-                'deadline': deadline,
+                'deadline': deadline.strftime('%B %d, %Y'),
+                'deadline_unix': deadline.timestamp(),
+                'date_created': current_time.strftime('%B %d, %Y'),
+                'date_created_unix': int(current_time.timestamp()),
             })
 
             return redirect(url_for('tasks'))
@@ -66,10 +87,34 @@ def create_task():
 
     return render_template('login.html')
 
+
+
+@app.route('/delete_task/<task_id>')
+def delete_task(task_id):
+
+    mongo.db.tasks.delete_one({ '_id': ObjectId(task_id)})
+
+    return redirect(url_for('tasks'))
+
+
+
+
+@app.route('/task_details/<task_id>')
+def task_details(task_id):
+
+    task = mongo.db.tasks.find_one({ '_id': ObjectId(task_id)})
+
+    return render_template('task_details.html', task=task)
+
+
+
+
+
 @app.route('/account')
 def account():
+    current_user = session['username']
 
-    return render_template('account.html')
+    return render_template('account.html', current_user=current_user)
 
 
 ############################################################
@@ -101,10 +146,8 @@ def register():
         existing_user = users.find_one({'name': request.form['username']})
 
         if existing_user is None:
-            hashpass = bcrypt.hashpw(
-                request.form['pass'].encode('utf-8'), bcrypt.gensalt())
-            users.insert(
-                {'name': request.form['username'], 'password': hashpass})
+            hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'), bcrypt.gensalt())
+            users.insert({'name': request.form['username'], 'password': hashpass})
             session['username'] = request.form['username']
             return redirect(url_for('homepage'))
 
@@ -113,8 +156,8 @@ def register():
     return render_template('register.html')
 
 
-@app.route('/sign_out')
-def sign_out():
+@app.route('/logout')
+def logout():
 
     session.pop('username')
 

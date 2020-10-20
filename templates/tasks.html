@@ -4,8 +4,18 @@
 <main>
     <div class="allTasks">
         {% for task in users_tasks %}
-            <div>
-                <h1>{{ task['title'] }}</h1>
+            <div class="taskCard">
+                <a href="/delete_task/{{ task['_id']}}" class="taskCardDeleteButton" onclick="">&times;</a>
+                <p class="taskCardTitle">{{ task['title'] }}</p>
+                <hr>
+                {% if current_time < task['deadline_unix'] %}
+                <p>Deadline: <span style="color: rgb(112, 250, 112);">{{ task['deadline']}}</span></p>
+                {% else %}
+                <p>Deadline: <span style="color: rgb(255, 101, 101);">{{ task['deadline']}}</span></p>
+                {% endif %}
+                <p style='margin-bottom: 8px'>Task Completion Percentage:</p>
+                <div class="taskCompletionBar" style="width: 50%;"></div>
+                <a class="viewTaskButton" href="/task_details/{{ task['_id'] }}">Task Details</a>
             </div>
         {% endfor %}
     </div>
