@@ -2,21 +2,42 @@
 {% block content %}
 
 <main>
+    <div class="tasksMainDiv">
+        <h1 class="tasksMainHeader">Tasks</h1>
+        <a class="tasksMainAddButton" href="/create_task">+</a>
+    </div>
+
+    <hr style="width: 95%; margin-left: 40px;">
+
     <div class="allTasks">
         {% for task in users_tasks %}
+        <form action="/mark_completion/{{ task['_id'] }}" method="POST">
+
             <div class="taskCard">
                 <a href="/delete_task/{{ task['_id']}}" class="taskCardDeleteButton" onclick="">&times;</a>
                 <p class="taskCardTitle">{{ task['title'] }}</p>
                 <hr>
-                {% if current_time < task['deadline_unix'] %}
-                <p>Deadline: <span style="color: rgb(112, 250, 112);">{{ task['deadline']}}</span></p>
+
+                {% if current_time < task['dates']['deadline_unix'] %}
+                <p>Deadline: <span style="color: rgb(112, 250, 112);">{{ task['dates']['deadline']}}</span></p>
                 {% else %}
-                <p>Deadline: <span style="color: rgb(255, 101, 101);">{{ task['deadline']}}</span></p>
+                <p>Deadline: <span style="color: rgb(255, 101, 101);">{{ task['dates']['deadline']}}</span></p>
                 {% endif %}
                 <p style='margin-bottom: 8px'>Task Completion Percentage:</p>
-                <div class="taskCompletionBar" style="width: 50%;"></div>
-                <a class="viewTaskButton" href="/task_details/{{ task['_id'] }}">Task Details</a>
+
+                <div class="taskCompletionBar" style="width: {{ task['progression']['completion_percentage'] }}%">
+                </div>
+
+                <div class="taskCardButtons">
+                    {% if task['progression']['completed'] == true %}
+                    <button type="submit" class="taskCardButton incompleteButton">Mark Incomplete</button>
+                    {% elif task['progression']['completed'] == false %}
+                    <button type="submit" class="taskCardButton completeButton">Mark Complete</button>
+                    {% endif %}
+                    <a class="taskCardButton" href="/task_details/{{ task['_id'] }}">Task Details</a>
+                </div>
             </div>
+        </form>
         {% endfor %}
     </div>
 </main>

@@ -25,7 +25,7 @@ current_time = datetime.now()
 print(current_time)
 
 ############################################################
-# ROUTES
+# MAIN ROUTES
 ############################################################
 
 
@@ -56,6 +56,13 @@ def tasks():
     return render_template('login.html')
 
 
+@app.route('/account')
+def account():
+    current_user = session['username']
+
+    return render_template('account.html', current_user=current_user)
+
+
 @app.route('/create_task', methods=['POST', "GET"])
 def create_task():
 
@@ -75,10 +82,17 @@ def create_task():
                 'title': title,
                 'description': description,
                 'category': category,
-                'deadline': deadline.strftime('%B %d, %Y'),
-                'deadline_unix': deadline.timestamp(),
-                'date_created': current_time.strftime('%B %d, %Y'),
-                'date_created_unix': int(current_time.timestamp()),
+                'progression': {
+                    'completed': False,
+                    'completion_percentage': 50
+                },
+                'dates': {
+                    'deadline': deadline.strftime('%B %d, %Y'),
+                    'deadline_unix': deadline.timestamp(),
+                    'date_created': current_time.strftime('%B %d, %Y'),
+                    'date_created_unix': int(current_time.timestamp())
+                }
+
             })
 
             return redirect(url_for('tasks'))
@@ -86,6 +100,12 @@ def create_task():
         return render_template('create_task.html', current_user=current_user)
 
     return render_template('login.html')
+
+
+
+############################################################
+# TASK MODIFICATION ROUTES
+############################################################
 
 
 
@@ -108,13 +128,107 @@ def task_details(task_id):
 
 
 
+@app.route('/mark_completion/<task_id>', methods=['POST', "GET"])
+def mark_completion(task_id):
+
+    task = mongo.db.tasks.find_one({'_id': ObjectId(task_id)})
+    task_completion_status = task['progression']['completed']
+
+    if task_completion_status is True:
+        mongo.db.tasks.update_one(
+            {'_id': ObjectId(task_id)},
+            {
+                '$set': {
+                    'progression': {
+                        'completed': False,
+                        'completion_percentage': 25
+                    }
+                }
+            }
+        )
+        return redirect(url_for('tasks'))
+    elif task_completion_status is False:
+        mongo.db.tasks.update_one(
+            {'_id': ObjectId(task_id)},
+            {
+                '$set': {
+                    'progression': {
+                        'completed': True,
+                        'completion_percentage': 100
+                    }
+                }
+            }
+        )
+        return redirect(url_for('tasks'))
+
+    return render_template('tasks.html')
 
 
-@app.route('/account')
-def account():
-    current_user = session['username']
 
-    return render_template('account.html', current_user=current_user)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ############################################################
